@@ -1,0 +1,230 @@
+body {
+  background: #191822;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'SF Pro Display', Arial, sans-serif;
+  margin: 0;
+  position: relative;
+  z-index: 0;
+}
+.bg-iphone {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  background: radial-gradient(ellipse at 60% 20%, #5076eb 0%, #e3bbee 40%, #404348 100%);
+  filter: blur(2px);
+  width: 100vw;
+  height: 100vh;
+  transition: filter 0.3s;
+}
+.iphone-frame {
+  width: 390px;
+  height: 844px;
+  background: transparent;
+  border-radius: 56px;
+  border: 8px solid #222;
+  box-shadow: 0 10px 50px #000a;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+}
+.notch {
+  width: 120px;
+  height: 34px;
+  background: #222;
+  border-radius: 0 0 26px 26px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+}
+.statusbar {
+  width: 100%;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px 0 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 25;
+  color: #111b;
+  font-size: 17px;
+  font-weight: 500;
+  user-select: none;
+}
+/* Иконки справа */
+.right-icons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.icon-signal::before { content: "📶"; font-size: 19px;}
+.icon-wifi::before   { content: "📡"; font-size: 16px;}
+.icon-battery::before{ content: "📡"; font-size: 18px;}
+/* --- экран и аппы --- */
+.screen {
+  flex: 1;
+  width: 100%;
+  padding-top: 55px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  background: transparent;
+}
+
+/* Dock */
+.dock {
+  width: 252px;
+  background: #edf1f9cc;
+  border-radius: 28px 28px 34px 34px;
+  height: 72px;
+  box-shadow: 0 8px 20px #2222;
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  backdrop-filter: blur(16px);
+  border-top: 1px solid #ffffff6d;
+  z-index: 26;
+}
+
+/* Рабочий стол приложений */
+.apps {
+  margin-top: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 26px 27px;
+  width: 298px;
+  z-index: 3;
+  position: relative;
+}
+.app {
+  width: 78px;
+  height: 78px;
+  border-radius: 19px;
+  background: linear-gradient(145deg, #ffffffd6 70%, #d3dbeb 100%);
+  box-shadow: 0 4px 22px #0001, 0 1px 2px #fff5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  transition: box-shadow 0.14s, background 0.18s, transform 0.08s;
+  font-family: inherit;
+  position: relative;
+}
+.app:hover, .app:focus {
+  background: linear-gradient(145deg, #f4f8ff 40%, #d3dbeb 100%);
+  box-shadow: 0 4px 28px #0003, 0 1px 2px #fff5;
+  transform: scale(1.06);
+}
+.app:active {
+  background: #dee7faa9;
+  transform: scale(0.96);
+}
+.app-icon {
+  font-size: 35px;
+  display: block;
+}
+.app > span:last-child {
+  color: #303040;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 6px;
+  text-shadow: 0 1px 3px #fff7;
+}
+
+.app-overlay {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 90;
+  background: rgba(30, 30, 50, 0.19);
+  backdrop-filter: blur(7px);
+  animation: fadeInOverlay 0.23s;
+}
+@keyframes fadeInOverlay {
+  from { opacity: 0;}
+  to   { opacity: .93;}
+}
+
+.app-window {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 90px;
+  width: 322px;
+  min-height: 260px;
+  background: linear-gradient(120deg, #fcfdff 80%, #e9f5ff 100%);
+  border-radius: 28px;
+  box-shadow: 0 12px 45px #4446, 0 1px 2px #fff5;
+  z-index: 100;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  animation: appOpen 0.22s;
+  transform: translateX(-50%);
+}
+@keyframes appOpen {
+  from { opacity: 0; transform: translateX(-50%) scale(0.92);}
+  to   { opacity: 1; transform: translateX(-50%) scale(1);}
+}
+.app-window.active {
+  display: flex;
+}
+.app-overlay.active {
+  display: block;
+}
+
+.app-header {
+  padding: 23px 0 11px;
+  width: 100%;
+  text-align: center;
+  font-size: 21px;
+  font-weight: 700;
+  color: #222b;
+  letter-spacing: .05em;
+  border-bottom: 1px solid #e7e7ee;
+  background: #f6f7fae8;
+  position: relative;
+  user-select: none;
+  border-radius: 28px 28px 0 0;
+}
+.close-btn {
+  position: absolute;
+  right: 20px;
+  top: 18px;
+  background: #ececec;
+  color: #888;
+  padding: 2px 13px;
+  border-radius: 15px;
+  font-size: 24px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 4px #0001;
+  transition: background .15s, color .13s;
+}
+.close-btn:hover {
+  background: #ed7171;
+  color: #fff;
+}
+.app-content {
+  margin: 38px 20px 28px 20px;
+  color: #444;
+  font-size: 17px;
+  text-align: center;
+}
